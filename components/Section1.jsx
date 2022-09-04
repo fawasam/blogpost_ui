@@ -3,10 +3,12 @@ import Link from "next/link";
 import React from "react";
 import Author from "./_child/Author";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { CgArrowLongLeft, CgArrowLongRight } from "react-icons/cg";
 import "swiper/css";
 import "swiper/css/navigation";
 import SwiperCode, { Autoplay, Navigation } from "swiper";
+import fetcher from "lib/fetcher";
+import Spinner from "./_child/Spinner";
+import ErrorSpinner from "./_child/ErrorSpinner";
 
 const Section1 = () => {
   SwiperCode.use([Autoplay]);
@@ -14,6 +16,9 @@ const Section1 = () => {
     background: "url('/images/banner.png') no-repeat",
     backgroundPosition: "right",
   };
+  const { data, isLoading, isError } = fetcher("api/popular");
+  if (isLoading) return <Spinner />;
+  if (isError) return <ErrorSpinner />;
   return (
     <section className="py-16" style={bg}>
       <div className="container mx-auto md:px-20 ">
@@ -25,18 +30,11 @@ const Section1 = () => {
           loop={true}
           navigation
         >
-          <SwiperSlide>
-            <Slide />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Slide />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Slide />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Slide />
-          </SwiperSlide>
+          {data.data.map((value, i) => (
+            <SwiperSlide key={i}>
+              <Slide data={value} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </section>
@@ -45,13 +43,15 @@ const Section1 = () => {
 
 export default Section1;
 
-function Slide() {
+function Slide({ data }) {
+  const { id, title, subtitle, category, img, published, author } = data;
+
   return (
     <div className="grid md:grid-cols-2">
       <div className="image">
         <Link href={"/"}>
           <a>
-            <Image src={"/images/img1.jpg"} width={600} height={600} />
+            <Image src={img || ""} alt={id} width={600} height={450} />
           </a>
         </Link>
       </div>
@@ -59,29 +59,24 @@ function Slide() {
         <div className="category">
           <Link href={"/"}>
             <a className="text-orange-600 hover:text-orange-800">
-              Business, Travel
+              {category || "unknown"}
             </a>
           </Link>
           <Link href={"/"}>
-            <a className="text-gray-800 hover:text-gray-600">-July 3,2022</a>
+            <a className="text-gray-800 hover:text-gray-600 ml-2">
+              {published || "unknown"}
+            </a>
           </Link>
         </div>
         <div className="title">
           <Link href={"/"}>
             <a className="text-3xl md:text-6xl font-bold text-gray-800 hover:text-gray-600">
-              Your most happy customers are your geatest source of learning
+              {title || "unknown"}
             </a>
           </Link>
         </div>
-        <p className="text-gray-500 py-3">
-          Even the all-powerful Pointing has no control about the blind texts it
-          is an almost unorthographic life One day however a small line of blind
-          text by the name of Lorem Ipsum decided to leave for the far World of
-          Grammar
-        </p>
-        <h1>
-          <Author />
-        </h1>
+        <p className="text-gray-500 py-3">{subtitle || "unknown"}</p>
+        {author ? <Author /> : ""}
       </div>
     </div>
   );
