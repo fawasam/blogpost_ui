@@ -2,12 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Author from "./_child/Author";
-import usefetcher from "lib/fetcher";
+import Fetcher from "lib/fetcher";
 import Spinner from "./_child/Spinner";
 import ErrorSpinner from "./_child/ErrorSpinner";
 
 const Section4 = () => {
-  const { data, isLoading, isError } = usefetcher("api/popular");
+  const { data, isLoading, isError } = Fetcher("api/popular");
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorSpinner />;
   return (

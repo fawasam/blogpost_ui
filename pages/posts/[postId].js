@@ -3,7 +3,7 @@ import Related from "@/components/_child/Related";
 import Spinner from "@/components/_child/Spinner";
 import ErrorSpinner from "@/components/_child/ErrorSpinner";
 import Layout from "layout/Layout";
-import usefetcher from "lib/fetcher";
+import Fetcher from "lib/fetcher";
 import getPost from "lib/helper";
 import Image from "next/image";
 import React from "react";
@@ -13,7 +13,7 @@ import { SWRConfig } from "swr";
 export default function Page({ fallback }) {
   const router = useRouter();
   const { postId } = router.query;
-  const { data, isLoading, isError } = usefetcher(`api/posts/${postId}`);
+  const { data, isLoading, isError } = Fetcher(`api/posts/${postId}`);
   const post = data?.data;
 
   if (isLoading) return <Spinner />;

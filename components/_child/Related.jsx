@@ -5,10 +5,10 @@ import Author from "./Author";
 
 import Spinner from "./Spinner";
 import ErrorSpinner from "./ErrorSpinner";
-import usefetcher from "lib/fetcher";
+import Fetcher from "lib/fetcher";
 
 const Related = () => {
-  const { data, isLoading, isError } = usefetcher("api/posts");
+  const { data, isLoading, isError } = Fetcher("api/posts");
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorSpinner />;
   return (
