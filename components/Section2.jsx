@@ -1,4 +1,4 @@
-import fetcher from "lib/fetcher";
+import usefetcher from "lib/fetcher";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -7,7 +7,7 @@ import Spinner from "./_child/Spinner";
 import ErrorSpinner from "./_child/ErrorSpinner";
 
 const Section2 = () => {
-  const { data, isLoading, isError } = fetcher("api/posts");
+  const { data, isLoading, isError } = usefetcher("api/posts");
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorSpinner />;
 

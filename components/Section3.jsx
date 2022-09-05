@@ -6,13 +6,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import SwiperCode, { Autoplay } from "swiper";
-import fetcher from "lib/fetcher";
+import usefetcher from "lib/fetcher";
 import Spinner from "./_child/Spinner";
 import ErrorSpinner from "./_child/ErrorSpinner";
 
 const Section3 = () => {
   SwiperCode.use([Autoplay]);
-  const { data, isLoading, isError } = fetcher("api/trending");
+  const { data, isLoading, isError } = usefetcher("api/trending");
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorSpinner />;
 

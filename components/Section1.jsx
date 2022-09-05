@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import SwiperCode, { Autoplay, Navigation } from "swiper";
-import fetcher from "lib/fetcher";
+import usefetcher from "lib/fetcher";
 import Spinner from "./_child/Spinner";
 import ErrorSpinner from "./_child/ErrorSpinner";
 
@@ -16,7 +16,7 @@ const Section1 = () => {
     background: "url('/images/banner.png') no-repeat",
     backgroundPosition: "right",
   };
-  const { data, isLoading, isError } = fetcher("api/popular");
+  const { data, isLoading, isError } = usefetcher("api/popular");
   if (isLoading) return <Spinner />;
   if (isError) return <ErrorSpinner />;
   return (
