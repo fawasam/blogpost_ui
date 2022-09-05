@@ -30,7 +30,9 @@ function Article({ id, title, subtitle, img, author, description }) {
   return (
     <Layout>
       <section className="container mx-auto md:px-2 py-16 w-1/2">
-        <div className="flex justify-center">{author ? <Author /> : ""}</div>
+        <div className="flex justify-center">
+          {author ? <Author {...author} /> : ""}
+        </div>
         <div className="post py-10">
           <h1 className="font-bold text-4xl text-center">
             {title || "unknown"}

@@ -32,7 +32,7 @@ function Post({ data }) {
   return (
     <div className="item">
       <div className="images">
-        <Link href={"/"}>
+        <Link href={`/posts/${id}`}>
           <a>
             <Image
               src={img || ""}
@@ -46,26 +46,26 @@ function Post({ data }) {
         </Link>
       </div>
       <div className="info flex justify-center flex-col py-4">
-        <Link href={"/"}>
+        <Link href={`/posts/${id}`}>
           <a className="text-orange-600 hover:text-orange-800">
             {category || "unknown"}
           </a>
         </Link>
-        <Link href={"/"}>
+        <Link href={`/posts/${id}`}>
           <a className="text-gray-800 hover:text-gray-600">
             {published || "unknown"}
           </a>
         </Link>
       </div>
       <div className="title">
-        <Link href={"/"}>
+        <Link href={`/posts/${id}`}>
           <a className="text-xl  font-bold text-gray-800 hover:text-gray-600">
             {title || "Title"}
           </a>
         </Link>
       </div>
       <p className="text-gray-500 py-3">{subtitle || "Subtitle"}</p>
-      {author ? <Author /> : ""}
+      {author ? <Author {...author} /> : ""}
     </div>
   );
 }
